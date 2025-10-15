@@ -1,0 +1,46 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+fastapi = ">=0.104.0"
+uvicorn = {extras = ["standard"], version = ">=0.24.0"}
+sqlalchemy = ">=2.0.0"
+pydantic = {extras = ["email"], version = ">=2.0.0"}
+passlib = {extras = ["bcrypt"], version = ">=1.7.4"}
+python-multipart = ">=0.0.6"
+pydantic-settings = ">=2.0.0"
+
+# MySQL driver (choose one)
+pymysql = ">=1.1.0"
+cryptography = ">=41.0.0"  # Required for pymysql
+
+# Alternative MySQL driver (faster, but requires compilation)
+# mysqlclient = ">=2.2.0"
+
+# Optional but recommended
+python-jose = {extras = ["cryptography"], version = ">=3.3.0"}
+alembic = ">=1.12.0"
+python-dotenv = ">=1.0.0"  # For environment variables
+
+[dev-packages]
+pytest = ">=7.4.0"
+pytest-cov = ">=4.1.0"
+httpx = ">=0.25.0"
+black = ">=23.10.0"
+flake8 = ">=6.1.0"
+mypy = ">=1.6.0"
+pre-commit = ">=3.5.0"
+
+[requires]
+python_version = "3.11"
+
+[scripts]
+dev = "uvicorn main:app --reload --host 0.0.0.0 --port 8000"
+start = "uvicorn main:app --host 0.0.0.0 --port 8000"
+test = "pytest tests/ -v --cov=. --cov-report=html"
+format = "black ."
+lint = "flake8 ."
+type-check = "mypy ."
+migrate = "alembic upgrade head"
